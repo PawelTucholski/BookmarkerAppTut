@@ -1,11 +1,11 @@
 
 document.getElementById('myForm').addEventListener('submit', saveBookmark);
 
-function saveBookmark (e) {
+function saveBookmark(e) {
   var siteName = document.getElementById('siteName').value;
   var siteUrl = document.getElementById('siteUrl').value;
 
-  if(!validateForm(siteName, siteUrl)) {
+  if (!validateForm(siteName, siteUrl)) {
     return false;
   }
 
@@ -23,20 +23,22 @@ function saveBookmark (e) {
     bookmarks.push(bookmark);
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
   }
+
   document.getElementById('myForm').reset();
 
   fetchBookmarks();
 
   e.preventDefault();
-};
+}
 
-function deleteBookmark(url){
+function deleteBookmark(url) {
   var bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
   for (var i = 0; i < bookmarks.length; i++) {
     if (bookmarks[i].url == url) {
       bookmarks.splice(i, 1);
     }
   }
+
   localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
 
   fetchBookmarks();
@@ -50,26 +52,28 @@ function fetchBookmarks() {
   for (var i = 0; i < bookmarks.length; i++) {
     var name = bookmarks[i].name;
     var url = bookmarks[i].url;
-    bookmarkResults.innerHTML += '<div class="well">'+
-                                  '<h3>'+name+
-                                  '<a class="btn btn-default" target="_blank" href="'+url+'">Visit</a>'+
-                                  '<a onclick="deleteBookmark(\''+url+'\')" class="btn btn-danger" href="#">Delete</a>'+
-                                  '</h3>'+
+    bookmarkResults.innerHTML += '<div class="well">' +
+                                  '<h3>' + name +
+                                  '<a class="btn btn-default" target="_blank" href="' + url + '">Visit</a>' +
+                                  '<a onclick="deleteBookmark(\'' + url + '\')" class="btn btn-danger" href="#">Delete</a>' +
+                                  '</h3>' +
                                   '</div>';
   }
 }
 function validateForm(siteName, siteUrl) {
+  'use strict';
   if (!siteName || !siteUrl) {
-    alert("Please fill in the form");
+    alert('Please fill in the form');
     return false;
   }
 
-  var expression =/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
-  var regex = new RegExp(expression);
+  let expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+  let regex = new RegExp(expression);
 
   if (!siteUrl.match(regex)) {
-    alert("Please use a valid URL");
+    alert('Please use a valid URL');
     return false;
   }
+
   return true;
 }
