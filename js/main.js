@@ -51,13 +51,13 @@ function fetchBookmarks() {
     var name = bookmarks[i].name;
     var url = bookmarks[i].url;
     bookmarkResults.innerHTML += '<div class="well">' +
-                                  '<h3>' + name +
-                                  '<a class="btn btn-default" target="_blank" href="' + url + '">Visit</a>' +
-                                  '<a onclick="deleteBookmark(\'' + url + '\')" class="btn btn-danger" href="#">Delete</a>' +
-                                  '</h3>' +
-                                  '</div>';
+        '<h3>' + name +
+        '<a class="btn btn-default" target="_blank" href="' + url + '">Visit</a>' +
+        '<a onclick="deleteBookmark(\'' + url + '\')" class="btn btn-danger" href="#">Delete</a>' +
+        '</h3>' + '</div>';
   }
 }
+
 function validateForm(siteName, siteUrl) {
   'use strict';
   if (!siteName || !siteUrl) {
@@ -65,8 +65,8 @@ function validateForm(siteName, siteUrl) {
     return false;
   }
 
-  let expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
-  let regex = new RegExp(expression);
+  var expression =  /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+  var regex = new RegExp(expression);
 
   if (!siteUrl.match(regex)) {
     alert('Please use a valid URL');
